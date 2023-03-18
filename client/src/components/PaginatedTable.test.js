@@ -1,9 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import App from "./App";
+import PaginatedTable from "./PaginatedTable";
 
 test("renders learn react link", () => {
-  render(<App />);
+  render(<PaginatedTable />);
   const linkElement = screen.getByText(/test/i);
   expect(linkElement).toBeInTheDocument();
 });

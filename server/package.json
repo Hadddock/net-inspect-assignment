@@ -1,0 +1,19 @@
+{
+    "name": "ni-front-end-nodejs-api",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.ts",
+        "dev": "nodemon ./server.ts localhost 3080"
+    },
+    "private": true,
+    "dependencies": {
+        "express": "^4.17.1",
+        "typescript": "^4.1.3"
+    },
+    "devDependencies": {
+        "@types/node": "^14.14.22",
+        "nodemon": "^2.0.7",
+        "ts-node": "^9.1.1"
+    }
+}

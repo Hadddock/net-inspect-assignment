@@ -152,5 +152,6 @@ test("display cell entry in column header order", () => {
 test("display number of items specified by initialPageSize", () => {
   render(<PaginatedTable data={data} initialPageSize={2} />);
   const rows = screen.getAllByRole("row");
+  //number of data rows set by page size (2) + column header row (1)
   expect(rows.length).toBe(3);
 });

@@ -91,6 +91,31 @@ test("exclude selected column headers", () => {
   );
 });
 
+test("reorder column headers", () => {
+  render(
+    <PaginatedTable
+      data={data}
+      columnHeaderOrder={[
+        "partNumber",
+        "revision",
+        "partName",
+        "toolDieSetNumber",
+        "isQualified",
+        "openPo",
+        "jurisdiction",
+        "classification",
+        "supplierName",
+        "supplierCode",
+        "ctq",
+        "lastUpdatedBy",
+        "lastUpdatedDate",
+      ]}
+    />
+  );
+  const cells = screen.getAllByRole("columnheader");
+  expect(cells.map((header) => header.textContent)[0]).toBe("partNumber");
+});
+
 test("remap column header name", () => {
   render(
     <PaginatedTable

@@ -82,3 +82,11 @@ test("display column headers in order", () => {
   expect(columnHeaders[1].textContent).toMatch("ctq");
   expect(columnHeaders[13].textContent).toMatch("toolDieSetNumber");
 });
+
+test("exclude selected column headers", () => {
+  render(<PaginatedTable data={data} exclude={["lastUpdatedBy"]} />);
+  const columnHeaders = screen.getAllByRole("columnheader");
+  expect(columnHeaders.map((header) => header.textContent)).not.toContain(
+    "lastUpdatedBy"
+  );
+});

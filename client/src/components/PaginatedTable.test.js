@@ -90,3 +90,17 @@ test("exclude selected column headers", () => {
     "lastUpdatedBy"
   );
 });
+
+test("remap column header name", () => {
+  render(
+    <PaginatedTable
+      data={data}
+      exclude={["lastUpdatedBy"]}
+      columnHeaderNameMappings={{ partNumber: "Part Number" }}
+    />
+  );
+  const columnHeaders = screen.getAllByRole("columnheader");
+  expect(columnHeaders.map((header) => header.textContent)).toContain(
+    "Part Number"
+  );
+});

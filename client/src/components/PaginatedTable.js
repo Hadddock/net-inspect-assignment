@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const PaginatedTable = ({ data }) => {
+const PaginatedTable = ({ data, exclude = [] }) => {
   const getColumnHeaders = () => {
     const columnHeaderSet = new Set();
     data
@@ -9,7 +9,7 @@ const PaginatedTable = ({ data }) => {
         keyArray.forEach((key) => columnHeaderSet.add(key))
       );
 
-    return [...columnHeaderSet];
+    return [...columnHeaderSet].filter((header) => !exclude.includes(header));
   };
 
   const columnHeaders = getColumnHeaders();

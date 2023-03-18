@@ -70,13 +70,10 @@ const data = [
 ];
 
 test("renders learn react link", () => {
-  render(<PaginatedTable />);
   const linkElement = screen.getByText(/test/i);
   expect(linkElement).toBeInTheDocument();
 });
 
-beforeEach(() => {
-  <PaginatedTable data={data} />;
+test("PaginatedTable displays data", () => {
+  render(<PaginatedTable data={data} />);
 });
-
-describe("Create Paginated Table", () => {});

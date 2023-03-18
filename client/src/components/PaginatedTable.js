@@ -16,6 +16,8 @@ const PaginatedTable = ({
     return [...columnHeaderSet].filter((header) => !exclude.includes(header));
   };
 
+  const [displayedData, setDisplayedData] = useState(data);
+
   const columnHeaders = getColumnHeaders();
 
   return (
@@ -32,6 +34,15 @@ const PaginatedTable = ({
             ))}
           </tr>
         </thead>
+        <tbody role="rowgroup">
+          {displayedData.map((entry) => (
+            <tr role="row">
+              {Object.values(entry).map((value) => (
+                <td role="cell">{value}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
       </table>
     </div>
   );

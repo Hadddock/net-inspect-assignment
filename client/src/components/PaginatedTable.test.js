@@ -69,11 +69,6 @@ const data = [
   },
 ];
 
-test("renders test text", () => {
-  const linkElement = screen.getByText(/test/i);
-  expect(linkElement).toBeInTheDocument();
-});
-
 test("display columnHeader", () => {
   render(<PaginatedTable data={data} />);
   const columnHeaders = screen.getAllByRole("columnHeader");

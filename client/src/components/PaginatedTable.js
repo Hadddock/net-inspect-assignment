@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 
-const PaginatedTable = ({ data, exclude = [] }) => {
+const PaginatedTable = ({
+  data,
+  exclude = [],
+  columnHeaderNameMappings = {},
+}) => {
   const getColumnHeaders = () => {
     const columnHeaderSet = new Set();
     data
@@ -21,7 +25,9 @@ const PaginatedTable = ({ data, exclude = [] }) => {
           <tr role="row">
             {columnHeaders.map((headerName) => (
               <th role="columnheader" key={headerName}>
-                {headerName}
+                {columnHeaderNameMappings[headerName] !== undefined
+                  ? columnHeaderNameMappings[headerName]
+                  : headerName}
               </th>
             ))}
           </tr>

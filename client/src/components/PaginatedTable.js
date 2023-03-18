@@ -4,16 +4,33 @@ const PaginatedTable = ({
   data,
   exclude = [],
   columnHeaderNameMappings = {},
+  columnHeaderOrder = [],
 }) => {
   const getColumnHeaders = () => {
-    const columnHeaderSet = new Set();
+    let columnHeaderSet = new Set();
+
     data
       .map((entry) => Object.keys(entry))
       .forEach((keyArray) =>
         keyArray.forEach((key) => columnHeaderSet.add(key))
       );
 
-    return [...columnHeaderSet].filter((header) => !exclude.includes(header));
+    let filteredHeaders = [...columnHeaderSet].filter(
+      (header) => !exclude.includes(header)
+    );
+
+    columnHeaderSet = new Set();
+
+    if (columnHeaderOrder.length) {
+      columnHeaderOrder.forEach((header) => {
+        if (filteredHeaders.includes(header)) {
+          columnHeaderSet.add(header);
+        }
+      });
+    }
+    filteredHeaders.forEach((header) => columnHeaderSet.add(header));
+
+    return [...columnHeaderSet];
   };
 
   const [displayedData, setDisplayedData] = useState(data);

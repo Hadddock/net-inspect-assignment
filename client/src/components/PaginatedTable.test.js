@@ -104,3 +104,9 @@ test("remap column header name", () => {
     "Part Number"
   );
 });
+
+test("display cell entry", () => {
+  render(<PaginatedTable data={data} />);
+  const cells = screen.getAllByRole("cell");
+  expect(cells.map((cell) => cell.textContent)[0]).toBe("Baby");
+});

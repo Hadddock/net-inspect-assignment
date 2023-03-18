@@ -74,3 +74,11 @@ test("display column header", () => {
   const columnHeaders = screen.getAllByRole("columnheader");
   expect(columnHeaders[0].textContent).toMatch("classification");
 });
+
+test("display column headers in order", () => {
+  render(<PaginatedTable data={data} />);
+  const columnHeaders = screen.getAllByRole("columnheader");
+  expect(columnHeaders[0].textContent).toMatch("classification");
+  expect(columnHeaders[1].textContent).toMatch("ctq");
+  expect(columnHeaders[13].textContent).toMatch("toolDieSetNumber");
+});

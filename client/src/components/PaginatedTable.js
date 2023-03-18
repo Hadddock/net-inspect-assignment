@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from "react";
 
 const PaginatedTable = ({ data }) => {
-  let columnHeaderSet = new Set();
+  const getColumnHeaders = () => {
+    const columnHeaderSet = new Set();
+    data
+      .map((entry) => Object.keys(entry))
+      .forEach((keyArray) =>
+        keyArray.forEach((key) => columnHeaderSet.add(key))
+      );
 
-  data
-    .map((entry) => Object.keys(entry))
-    .forEach((keyArray) => keyArray.forEach((key) => columnHeaderSet.add(key)));
+    return [...columnHeaderSet];
+  };
 
-  const columnHeaders = [...columnHeaderSet];
+  const columnHeaders = getColumnHeaders();
 
   return (
     <div className="PaginatedTable">

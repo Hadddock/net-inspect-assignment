@@ -116,6 +116,13 @@ test("reorder column headers", () => {
   expect(cells.map((header) => header.textContent)[0]).toBe("partNumber");
 });
 
+test("reorder column headers with partial list", () => {
+  render(<PaginatedTable data={data} columnHeaderOrder={["partNumber"]} />);
+  const cells = screen.getAllByRole("columnheader");
+  expect(cells.map((header) => header.textContent)[0]).toBe("partNumber");
+  expect(cells.map((header) => header.textContent)[1]).toBe("classification");
+});
+
 test("remap column header name", () => {
   render(
     <PaginatedTable
@@ -131,6 +138,12 @@ test("remap column header name", () => {
 });
 
 test("display cell entry", () => {
+  render(<PaginatedTable data={data} />);
+  const cells = screen.getAllByRole("cell");
+  expect(cells.map((cell) => cell.textContent)[0]).toBe("Baby");
+});
+
+test("display cell entry in column header order", () => {
   render(<PaginatedTable data={data} />);
   const cells = screen.getAllByRole("cell");
   expect(cells.map((cell) => cell.textContent)[0]).toBe("Baby");

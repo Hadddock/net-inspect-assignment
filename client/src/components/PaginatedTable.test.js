@@ -144,7 +144,12 @@ test("display cell entry", () => {
 });
 
 test("display cell entry in column header order", () => {
-  render(<PaginatedTable data={data} />);
+  render(
+    <PaginatedTable
+      data={data}
+      columnHeaderNameMappings={{ partNumber: "Part Number" }}
+    />
+  );
   const cells = screen.getAllByRole("cell");
-  expect(cells.map((cell) => cell.textContent)[0]).toBe("Baby");
+  expect(cells.map((cell) => cell.textContent)[0]).toBe("YOKWIA");
 });

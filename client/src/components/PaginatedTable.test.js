@@ -148,3 +148,9 @@ test("display cell entry in column header order", () => {
   const cells = screen.getAllByRole("cell");
   expect(cells.map((cell) => cell.textContent)[0]).toBe("YOKWIA");
 });
+
+test("display number of items specified by initialPageSize", () => {
+  render(<PaginatedTable data={data} initialPageSize={2} />);
+  const rows = screen.getAllByRole("row");
+  expect(rows.length).toBe(3);
+});

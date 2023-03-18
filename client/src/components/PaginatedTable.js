@@ -52,13 +52,9 @@ const PaginatedTable = ({
           </tr>
         </thead>
         <tbody role="rowgroup">
-          {displayedData.map((entry) => (
-            <tr role="row">
-              {Object.values(entry).map((value) => (
-                <td role="cell">{value}</td>
-              ))}
-            </tr>
-          ))}
+          {displayedData.map((entry) =>
+            columnHeaders.map((header) => <td role="cell">{entry[header]}</td>)
+          )}
         </tbody>
       </table>
     </div>

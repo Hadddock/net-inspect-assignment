@@ -51,6 +51,22 @@ const data = [
     supplierName: "Tambee",
     toolDieSetNumber: "LL0N2K",
   },
+  {
+    classification: "Baby",
+    ctq: true,
+    isQualified: false,
+    jurisdiction: "Training",
+    lastUpdatedBy: "broddy3",
+    lastUpdatedDate: "2019-03-04T01:41:47Z",
+    openPo: false,
+    partName: "Tres-Zap",
+    partNumber: "Y4TFLI",
+    qplExpirationDate: "2019-07-27T14:53:24Z",
+    revision: "JS86",
+    supplierCode: "17772-122",
+    supplierName: "Realcube",
+    toolDieSetNumber: "KRE2TR",
+  },
 ];
 
 test("renders learn react link", () => {

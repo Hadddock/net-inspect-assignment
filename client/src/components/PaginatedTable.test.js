@@ -69,11 +69,13 @@ const data = [
   },
 ];
 
-test("renders learn react link", () => {
+test("renders test text", () => {
   const linkElement = screen.getByText(/test/i);
   expect(linkElement).toBeInTheDocument();
 });
 
-test("PaginatedTable displays data", () => {
+test("display columnHeader", () => {
   render(<PaginatedTable data={data} />);
+  const columnHeaders = screen.getAllByRole("columnHeader");
+  expect(columnHeaders[0].textContent).toMatch("classification");
 });

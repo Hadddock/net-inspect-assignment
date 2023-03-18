@@ -5,6 +5,7 @@ const PaginatedTable = ({
   exclude = [],
   columnHeaderNameMappings = {},
   columnHeaderOrder = [],
+  initialPageSize = 20,
 }) => {
   const getColumnHeaders = () => {
     let columnHeaderSet = new Set();
@@ -34,6 +35,7 @@ const PaginatedTable = ({
   };
 
   const [displayedData, setDisplayedData] = useState(data);
+  const [pageSize, setPageSize] = useState(initialPageSize);
 
   const columnHeaders = getColumnHeaders();
 
@@ -52,9 +54,13 @@ const PaginatedTable = ({
           </tr>
         </thead>
         <tbody role="rowgroup">
-          {displayedData.map((entry) =>
-            columnHeaders.map((header) => <td role="cell">{entry[header]}</td>)
-          )}
+          {displayedData.slice(0, pageSize).map((entry) => (
+            <tr role="row">
+              {columnHeaders.map((header) => (
+                <td role="cell">{entry[header]}</td>
+              ))}
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

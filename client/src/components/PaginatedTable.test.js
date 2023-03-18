@@ -69,8 +69,8 @@ const data = [
   },
 ];
 
-test("display columnHeader", () => {
+test("display column header", () => {
   render(<PaginatedTable data={data} />);
-  const columnHeaders = screen.getAllByRole("columnHeader");
+  const columnHeaders = screen.getAllByRole("columnheader");
   expect(columnHeaders[0].textContent).toMatch("classification");
 });

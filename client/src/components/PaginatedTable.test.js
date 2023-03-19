@@ -182,7 +182,20 @@ test("go to previous page", async () => {
   act(() => userEvent.click(previousButton));
   expect(pageNumber.textContent).toBe("1");
   act(() => userEvent.click(nextButton));
-  expect(pageNumber.textContent).toBe("2");
   act(() => userEvent.click(previousButton));
+  expect(pageNumber.textContent).toBe("1");
+});
+
+test("go to first page", async () => {
+  render(<PaginatedTable data={data} initialPageSize={1} />);
+  const nextButton = screen.getByRole("button", { name: "next" });
+  const firstButton = screen.getByRole("button", { name: "first" });
+  const pageNumber = screen.getByTestId("page-number");
+  act(() => userEvent.click(firstButton));
+  //already at first page, nothing happens
+  expect(pageNumber.textContent).toBe("1");
+  act(() => userEvent.click(nextButton));
+  act(() => userEvent.click(nextButton));
+  act(() => userEvent.click(firstButton));
   expect(pageNumber.textContent).toBe("1");
 });

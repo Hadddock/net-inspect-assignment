@@ -89,13 +89,30 @@
     gap: 10px;
     display: flex;
     align-items: center;
+
+    height: 100%;
+  }
+
+  &__page-number-container {
+    box-shadow: inset 0em 0.5em $page-number-color;
+
+    height: 100%;
+
+    display: flex;
+    align-items: center;
   }
 
   &__page-number {
     font-size: 1.5em;
     color: $page-number-color;
+  }
 
-    box-shadow: inset 0em 0.1em $page-number-color;
+  &__page-number-indicator {
+    grid-area: 0/ 0 / 1 /1;
+    height: 50px;
+    width: 50px;
+
+    background-color: blue;
   }
 
   &__table {

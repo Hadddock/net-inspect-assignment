@@ -200,11 +200,13 @@ const PaginatedTable = ({
               height="24px"
             />
           </button>
-          <span
-            className="PaginatedTable__page-number"
-            data-testid="page-number"
-          >
-            {pageNumber}
+          <span className="PaginatedTable__page-number-container">
+            <span
+              className="PaginatedTable__page-number"
+              data-testid="page-number"
+            >
+              {pageNumber}
+            </span>
           </span>
 
           <button

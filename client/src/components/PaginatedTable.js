@@ -102,7 +102,7 @@ const PaginatedTable = ({
 
   useEffect(() => {
     setDisplayedData(data);
-  }, [data, displayedData]);
+  }, [data]);
 
   const columnHeaders = getColumnHeaders();
 

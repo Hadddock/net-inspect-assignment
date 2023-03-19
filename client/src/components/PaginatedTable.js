@@ -108,7 +108,7 @@ const PaginatedTable = ({
         </thead>
         <tbody role="rowgroup">
           {displayedData
-            .slice(pageNumber - 1, Math.min(pageSize, displayedData.length))
+            .slice((pageNumber - 1) * pageSize, pageSize * pageNumber)
             .map((entry) => (
               <tr role="row">
                 {columnHeaders.map((header) => (

@@ -107,7 +107,7 @@ const PaginatedTable = ({
           {displayedData.slice(pageNumber - 1, pageSize).map((entry) => (
             <tr role="row">
               {columnHeaders.map((header) => (
-                <td role="cell">{entry[header]}</td>
+                <td role="cell">{entry[header].toString()}</td>
               ))}
             </tr>
           ))}

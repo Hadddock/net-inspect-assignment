@@ -70,7 +70,7 @@ const PaginatedTable = ({
   const searchItems = (e) => {
     e.preventDefault();
     let searchQuery = document.getElementById("search").value;
-    if (searchQuery) {
+    if (searchQuery && searchQuery.trim()) {
       setDisplayedData(
         data.filter((item) =>
           Object.values(item)
@@ -78,6 +78,8 @@ const PaginatedTable = ({
             .includes(searchQuery.toLowerCase())
         )
       );
+    } else {
+      setDisplayedData(data);
     }
     goToFirstPage();
   };

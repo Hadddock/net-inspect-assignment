@@ -64,6 +64,14 @@ const PaginatedTable = ({
     setPageSize(e.target.value);
   };
 
+  const searchItems = (e) => {
+    e.preventDefault();
+    let searchQuery = document.getElementById("search").value;
+    setDisplayedData(
+      data.filter((item) => Object.values(item).includes(searchQuery))
+    );
+  };
+
   const [displayedData, setDisplayedData] = useState(data);
   const [pageSize, setPageSize] = useState(initialPageSize);
   const [pageNumber, setPageNumber] = useState(1);
@@ -72,6 +80,16 @@ const PaginatedTable = ({
 
   return (
     <div className="PaginatedTable">
+      <form type="submit" onSubmit={searchItems}>
+        <input
+          id="search"
+          type="text"
+          placeholder="Search..."
+          name="search"
+        ></input>
+        <input type="submit" alt="search button" />
+      </form>
+
       <table role="table">
         <thead role="rowgroup">
           <tr role="row">

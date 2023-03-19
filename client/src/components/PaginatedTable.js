@@ -246,7 +246,9 @@ const PaginatedTable = ({
             <option value="50">50</option>
             <option value="100">100</option>
           </select>
-          <span>items per page</span>
+          <span className="PaginatedTable__items-per-page-display">
+            items per page
+          </span>
         </div>
         <div data-testid="showing-items">
           {displayedData.length === 0

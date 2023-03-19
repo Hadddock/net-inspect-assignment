@@ -35,7 +35,6 @@ const PaginatedTable = ({
   };
 
   const goToNextPage = () => {
-    console.log("called");
     if (pageSize * pageNumber < displayedData.length) {
       setPageNumber((pageNumber) => pageNumber + 1);
     }
@@ -61,10 +60,8 @@ const PaginatedTable = ({
   };
 
   const adjustPageSize = (e) => {
-    console.log(e.target);
     setPageNumber(1);
     setPageSize(e.target.value);
-    console.log(e.target.value);
   };
 
   const [displayedData, setDisplayedData] = useState(data);
@@ -115,6 +112,13 @@ const PaginatedTable = ({
           <option value="50">50</option>
           <option value="100">100</option>
         </select>
+        <div data-testid="showing-items">
+          Showing items{" "}
+          {`${pageSize * (pageNumber - 1) + 1} - ${Math.min(
+            displayedData.length,
+            pageSize * pageNumber
+          )}`}
+        </div>
       </div>
     </div>
   );

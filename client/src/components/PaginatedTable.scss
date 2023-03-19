@@ -2,6 +2,7 @@
   $header-footer-color: #f2f2f2;
   $page-number-color: #205690;
   $column-header-text-color: #919191;
+  $search-button-background-color: #d3d2d2;
   background-color: white;
   text-align: start;
 
@@ -22,8 +23,19 @@
   &__search-bar {
     height: 60%;
   }
+  &__search-button {
+    padding: 8px;
+    background-color: $search-button-background-color;
+    border: 1.5px solid rgb(44, 44, 44);
+    height: 60%;
+    margin: 0px;
+    box-sizing: border-box;
+    border-radius: 2px;
+    min-height: 35px;
+  }
 
   &__page-select {
+    box-sizing: border-box;
     height: 60%;
     min-width: 65px;
     display: flex;
@@ -33,10 +45,8 @@
 
   &__page-button {
     border: 0;
-  }
-
-  &__search-button {
-    height: 60%;
+    padding: 8px;
+    background-color: transparent;
   }
 
   &__column-header-row {
@@ -79,6 +89,7 @@
   }
 
   &__page-number {
+    font-size: 1.5em;
     color: $page-number-color;
 
     box-shadow: inset 0em 0.1em $page-number-color;

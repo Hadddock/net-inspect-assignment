@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./PaginatedTable.scss";
 import { v4 as uuid } from "uuid";
+import LastSvg from "./../assets/images/last.svg";
+import NextSvg from "./../assets/images/next.svg";
+import PreviousSvg from "./../assets/images/previous.svg";
+import FirstSvg from "./../assets/images/first.svg";
+import SearchSvg from "./../assets/images/search.svg";
 
 const PaginatedTable = ({
   data,
@@ -123,8 +128,11 @@ const PaginatedTable = ({
         ></input>
         <input
           className="PaginatedTable__search-button"
-          type="submit"
+          type="image"
+          src={SearchSvg}
           alt="search button"
+          width="35px"
+          height="35px"
         />
       </form>
 
@@ -170,13 +178,23 @@ const PaginatedTable = ({
             className="PaginatedTable__page-button"
             onClick={goToFirstPage}
           >
-            first
+            <img
+              src={FirstSvg}
+              alt="first page icon"
+              width="24px"
+              height="24px"
+            />
           </button>
           <button
             className="PaginatedTable__page-button"
             onClick={goToPreviousPage}
           >
-            previous
+            <img
+              src={PreviousSvg}
+              alt="previous page icon"
+              width="24px"
+              height="24px"
+            />
           </button>
           <span
             className="PaginatedTable__page-number"
@@ -189,13 +207,23 @@ const PaginatedTable = ({
             className="PaginatedTable__page-button"
             onClick={goToNextPage}
           >
-            next
+            <img
+              src={NextSvg}
+              alt="next page icon"
+              width="24px"
+              height="24px"
+            />
           </button>
           <button
             className="PaginatedTable__page-button"
             onClick={goToLastPage}
           >
-            last
+            <img
+              src={LastSvg}
+              alt="last page icon"
+              width="24px"
+              height="24px"
+            />
           </button>
           <select
             className="PaginatedTable__page-select"

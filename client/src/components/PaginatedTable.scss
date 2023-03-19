@@ -24,6 +24,7 @@
   &__search-bar {
     height: 60%;
   }
+
   &__search-button {
     padding: 8px;
     background-color: $search-button-background-color;
@@ -42,7 +43,6 @@
     display: flex;
     align-self: center;
     min-height: 35px;
-
     cursor: pointer;
   }
 
@@ -68,10 +68,8 @@
   &__column-header {
     position: sticky;
     font-weight: bold;
-
     z-index: 1;
     top: 2px;
-
     padding: 10px;
     color: $column-header-text-color;
 
@@ -116,7 +114,6 @@
   }
 
   &__page-number-indicator {
-    grid-area: 0/ 0 / 1 /1;
     height: 50px;
     width: 50px;
 

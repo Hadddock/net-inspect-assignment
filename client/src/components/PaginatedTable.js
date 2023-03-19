@@ -71,9 +71,21 @@ const PaginatedTable = ({
     e.preventDefault();
     let searchQuery = document.getElementById("search").value;
     setDisplayedData(
-      data.filter((item) => Object.values(item).includes(searchQuery))
+      data.filter((item) => Object.values(item).map.includes(searchQuery))
     );
     goToFirstPage();
+  };
+
+  const convertValueToDisplayString = (value) => {
+    if (typeof value === "boolean") {
+      return value ? "Yes" : "No";
+    }
+
+    if (Date.parse(value)) {
+      return new Date(value).toLocaleString().split(",")[0];
+    }
+
+    return value.toString();
   };
 
   const [displayedData, setDisplayedData] = useState(data);
@@ -112,7 +124,9 @@ const PaginatedTable = ({
             .map((entry) => (
               <tr role="row">
                 {columnHeaders.map((header) => (
-                  <td role="cell">{entry[header].toString()}</td>
+                  <td role="cell">
+                    {convertValueToDisplayString(entry[header])}
+                  </td>
                 ))}
               </tr>
             ))}

@@ -208,11 +208,12 @@ const PaginatedTable = ({
           <span>items per page</span>
         </div>
         <div data-testid="showing-items">
-          Showing items{" "}
-          {`${pageSize * (pageNumber - 1) + 1} - ${Math.min(
-            displayedData.length,
-            pageSize * pageNumber
-          )}`}
+          {displayedData.length === 0
+            ? "No items found"
+            : `Showing items ${pageSize * (pageNumber - 1) + 1} - ${Math.min(
+                displayedData.length,
+                pageSize * pageNumber
+              )}`}
         </div>
       </div>
     </div>

@@ -225,3 +225,10 @@ test("adjust page size", async () => {
   const rows = screen.getAllByRole("row");
   expect(rows.length).toBe(2);
 });
+
+test("showing items", async () => {
+  render(<PaginatedTable data={data} />);
+  const showingItems = screen.getByTestId("showing-items");
+  expect(showingItems.textContent).toBe("Showing items 1 - 4");
+  console.log(showingItems.textContent);
+});

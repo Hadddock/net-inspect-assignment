@@ -71,7 +71,11 @@ const PaginatedTable = ({
     e.preventDefault();
     let searchQuery = document.getElementById("search").value;
     setDisplayedData(
-      data.filter((item) => Object.values(item).map.includes(searchQuery))
+      data.filter((item) =>
+        Object.values(item)
+          .map((item) => convertValueToDisplayString(item))
+          .includes(searchQuery)
+      )
     );
     goToFirstPage();
   };

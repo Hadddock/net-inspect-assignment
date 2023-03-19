@@ -277,3 +277,15 @@ test("reset to first page after search query", async () => {
   const pageNumber = screen.getByTestId("page-number");
   expect(pageNumber.textContent).toBe("1");
 });
+
+test("search case insensitive", async () => {
+  render(<PaginatedTable data={data} />);
+  const searchBar = screen.getByRole("textbox");
+  const searchButton = screen.getByAltText("search button");
+  act(() => userEvent.type(searchBar, "baby"));
+  act(() => userEvent.click(searchButton));
+  const cells = screen.getAllByRole("cell");
+  const rows = screen.getAllByRole("row");
+  //number of data rows matching search query (2) + column header row (1)
+  expect(rows.length).toBe(3);
+});

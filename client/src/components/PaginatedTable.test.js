@@ -155,3 +155,9 @@ test("display number of items specified by initialPageSize", () => {
   //number of data rows set by page size (2) + column header row (1)
   expect(rows.length).toBe(3);
 });
+
+test("display items according to page number", () => {
+  render(<PaginatedTable data={data} initialPageSize={1} pageNumber={2} />);
+  const cells = screen.getAllByRole("cell");
+  expect(cells.map((cell) => cell.textContent)[0]).toBe("Garden");
+});

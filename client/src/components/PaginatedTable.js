@@ -47,7 +47,10 @@ const PaginatedTable = ({
   };
 
   const goToLastPage = () => {
-    let lastPageNumber = Math.floor(displayedData.length / pageSize);
+    let lastPageNumber = Math.max(
+      Math.floor(displayedData.length / pageSize),
+      1
+    );
     if (pageNumber !== lastPageNumber) {
       setPageNumber(lastPageNumber);
     }
@@ -104,13 +107,15 @@ const PaginatedTable = ({
           </tr>
         </thead>
         <tbody role="rowgroup">
-          {displayedData.slice(pageNumber - 1, pageSize).map((entry) => (
-            <tr role="row">
-              {columnHeaders.map((header) => (
-                <td role="cell">{entry[header].toString()}</td>
-              ))}
-            </tr>
-          ))}
+          {displayedData
+            .slice(pageNumber - 1, Math.min(pageSize, displayedData.length))
+            .map((entry) => (
+              <tr role="row">
+                {columnHeaders.map((header) => (
+                  <td role="cell">{entry[header].toString()}</td>
+                ))}
+              </tr>
+            ))}
         </tbody>
       </table>
       <div>

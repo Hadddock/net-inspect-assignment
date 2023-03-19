@@ -199,3 +199,15 @@ test("go to first page", async () => {
   act(() => userEvent.click(firstButton));
   expect(pageNumber.textContent).toBe("1");
 });
+
+test("go to last page", async () => {
+  render(<PaginatedTable data={data} initialPageSize={1} />);
+
+  const lastButton = screen.getByRole("button", { name: "last" });
+  const pageNumber = screen.getByTestId("page-number");
+  act(() => userEvent.click(lastButton));
+  expect(pageNumber.textContent).toBe("4");
+  act(() => userEvent.click(lastButton));
+  //already at last page, nothing happens
+  expect(pageNumber.textContent).toBe("4");
+});

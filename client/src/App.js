@@ -17,6 +17,7 @@ function App() {
 
   return (
     <div className="App">
+      <h1 style={{ textAlign: "start" }}>View QPL Parts List</h1>
       {data ? (
         <PaginatedTable
           data={data}

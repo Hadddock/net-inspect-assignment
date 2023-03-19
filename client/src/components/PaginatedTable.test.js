@@ -232,3 +232,10 @@ test("showing items", async () => {
   expect(showingItems.textContent).toBe("Showing items 1 - 4");
   console.log(showingItems.textContent);
 });
+
+test("showing items adjust page size", async () => {
+  render(<PaginatedTable data={data} initialPageSize={2} />);
+  const showingItems = screen.getByTestId("showing-items");
+  expect(showingItems.textContent).toBe("Showing items 1 - 2");
+  console.log(showingItems.textContent);
+});

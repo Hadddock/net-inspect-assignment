@@ -14,6 +14,14 @@ const PaginatedTable = ({
   columnHeaderOrder = [],
   initialPageSize = 20,
 }) => {
+  const [displayedData, setDisplayedData] = useState([]);
+  const [pageSize, setPageSize] = useState(initialPageSize);
+  const [pageNumber, setPageNumber] = useState(1);
+
+  useEffect(() => {
+    setDisplayedData(data);
+  }, [data]);
+
   const getColumnHeaders = () => {
     let columnHeaderSet = new Set();
     data
@@ -39,6 +47,8 @@ const PaginatedTable = ({
 
     return [...columnHeaderSet];
   };
+
+  const columnHeaders = getColumnHeaders();
 
   const goToNextPage = () => {
     if (pageSize * pageNumber < displayedData.length) {
@@ -102,16 +112,6 @@ const PaginatedTable = ({
 
     return value.toString();
   };
-
-  const [displayedData, setDisplayedData] = useState([]);
-  const [pageSize, setPageSize] = useState(initialPageSize);
-  const [pageNumber, setPageNumber] = useState(1);
-
-  useEffect(() => {
-    setDisplayedData(data);
-  }, [data]);
-
-  const columnHeaders = getColumnHeaders();
 
   return (
     <div className="PaginatedTable">

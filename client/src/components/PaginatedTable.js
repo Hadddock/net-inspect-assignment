@@ -75,6 +75,7 @@ const PaginatedTable = ({
 
   const searchItems = (e) => {
     e.preventDefault();
+
     let searchQuery = document.getElementById("search").value;
     if (searchQuery && searchQuery.trim()) {
       setDisplayedData(
@@ -122,7 +123,7 @@ const PaginatedTable = ({
         <input
           className="PaginatedTable__search-bar"
           id="search"
-          type="text"
+          type="search"
           placeholder="Search..."
           name="search"
         ></input>
@@ -130,9 +131,10 @@ const PaginatedTable = ({
           className="PaginatedTable__search-button"
           type="image"
           src={SearchSvg}
-          alt="search button"
+          aria-label="enter search"
           width="35px"
           height="35px"
+          onClick={searchItems}
         />
       </form>
 
@@ -177,6 +179,7 @@ const PaginatedTable = ({
           <button
             className="PaginatedTable__page-button"
             onClick={goToFirstPage}
+            aria-label="first page"
           >
             <img
               src={FirstSvg}
@@ -188,6 +191,7 @@ const PaginatedTable = ({
           <button
             className="PaginatedTable__page-button"
             onClick={goToPreviousPage}
+            aria-label="previous page"
           >
             <img
               src={PreviousSvg}
@@ -206,6 +210,7 @@ const PaginatedTable = ({
           <button
             className="PaginatedTable__page-button"
             onClick={goToNextPage}
+            aria-label="next page"
           >
             <img
               src={NextSvg}
@@ -217,6 +222,7 @@ const PaginatedTable = ({
           <button
             className="PaginatedTable__page-button"
             onClick={goToLastPage}
+            aria-label="last page"
           >
             <img
               src={LastSvg}

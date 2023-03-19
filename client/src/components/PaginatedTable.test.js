@@ -230,7 +230,6 @@ test("showing items", async () => {
   render(<PaginatedTable data={data} />);
   const showingItems = screen.getByTestId("showing-items");
   expect(showingItems.textContent).toBe("Showing items 1 - 4");
-  console.log(showingItems.textContent);
 });
 
 test("showing items adjust page size", async () => {
@@ -241,6 +240,13 @@ test("showing items adjust page size", async () => {
   const pageSize = screen.getByRole("combobox");
   act(() => userEvent.selectOptions(pageSize, ["1"]));
   expect(showingItems.textContent).toBe("Showing items 1 - 1");
+});
 
-  console.log(showingItems.textContent);
+test("showing items change page", async () => {
+  render(<PaginatedTable data={data} initialPageSize={2} />);
+  const showingItems = screen.getByTestId("showing-items");
+  expect(showingItems.textContent).toBe("Showing items 1 - 2");
+  const button = screen.getByRole("button", { name: "next" });
+  act(() => userEvent.click(button));
+  expect(showingItems.textContent).toBe("Showing items 3 - 4");
 });

@@ -16,7 +16,28 @@ function App() {
   }, []);
 
   return (
-    <div className="App">{data ? <PaginatedTable data={data} /> : null}</div>
+    <div className="App">
+      {data ? (
+        <PaginatedTable
+          data={data}
+          columnHeaderOrder={[
+            "partNumber",
+            "revision",
+            "partName",
+            "toolDieSetNumber",
+            "isQualified",
+            "openPo",
+            "jurisdiction",
+            "classification",
+            "supplierName",
+            "supplierCode",
+            "ctq",
+            "lastUpdatedBy",
+            "lastUpdatedDate",
+          ]}
+        />
+      ) : null}
+    </div>
   );
 }
 

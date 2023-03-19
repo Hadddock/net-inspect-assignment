@@ -70,6 +70,7 @@ const PaginatedTable = ({
     setDisplayedData(
       data.filter((item) => Object.values(item).includes(searchQuery))
     );
+    goToFirstPage();
   };
 
   const [displayedData, setDisplayedData] = useState(data);

@@ -140,7 +140,7 @@ const PaginatedTable = ({
 
       <div className="PaginatedTable__table-container">
         <table className="PaginatedTable__table" role="table">
-          <thead role="rowgroup">
+          <thead>
             <tr role="row" className="PaginatedTable__column-header-row">
               {columnHeaders.map((headerName) => (
                 <th
@@ -155,7 +155,7 @@ const PaginatedTable = ({
               ))}
             </tr>
           </thead>
-          <tbody role="rowgroup">
+          <tbody>
             {displayedData
               .slice((pageNumber - 1) * pageSize, pageSize * pageNumber)
               .map((entry) => (

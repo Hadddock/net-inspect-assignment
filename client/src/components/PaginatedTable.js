@@ -60,6 +60,13 @@ const PaginatedTable = ({
     }
   };
 
+  const adjustPageSize = (e) => {
+    console.log(e.target);
+    setPageNumber(1);
+    setPageSize(e.target.value);
+    console.log(e.target.value);
+  };
+
   const [displayedData, setDisplayedData] = useState(data);
   const [pageSize, setPageSize] = useState(initialPageSize);
   const [pageNumber, setPageNumber] = useState(1);
@@ -96,6 +103,18 @@ const PaginatedTable = ({
         <div data-testid="page-number">{pageNumber}</div>
         <button onClick={goToNextPage}>next</button>
         <button onClick={goToLastPage}>last</button>
+        <select
+          defaultValue={pageSize}
+          data-testid="page-size"
+          onChange={adjustPageSize}
+        >
+          <option value="1">1</option>
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
       </div>
     </div>
   );

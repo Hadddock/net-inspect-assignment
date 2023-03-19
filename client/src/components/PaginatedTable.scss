@@ -41,12 +41,14 @@
     display: flex;
     align-self: center;
     min-height: 35px;
+    cursor: pointer;
   }
 
   &__page-button {
     border: 0;
     padding: 8px;
     background-color: transparent;
+    cursor: pointer;
   }
 
   &__column-header-row {

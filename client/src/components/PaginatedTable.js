@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./PaginatedTable.scss";
+import { v4 as uuid } from "uuid";
 
 const PaginatedTable = ({
   data,
@@ -148,9 +149,13 @@ const PaginatedTable = ({
             {displayedData
               .slice((pageNumber - 1) * pageSize, pageSize * pageNumber)
               .map((entry) => (
-                <tr className="PaginatedTable__row" role="row">
+                <tr key={uuid()} className="PaginatedTable__row" role="row">
                   {columnHeaders.map((header) => (
-                    <td className="PaginatedTable__cell" role="cell">
+                    <td
+                      key={uuid()}
+                      className="PaginatedTable__cell"
+                      role="cell"
+                    >
                       {convertValueToDisplayString(entry[header])}
                     </td>
                   ))}

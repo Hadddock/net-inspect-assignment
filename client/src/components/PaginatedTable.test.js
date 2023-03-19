@@ -251,6 +251,18 @@ test("showing items change page", async () => {
   expect(showingItems.textContent).toBe("Showing items 3 - 4");
 });
 
+test("showing items no items found", async () => {
+  render(<PaginatedTable data={data} initialPageSize={2} />);
+
+  const searchBar = screen.getByRole("textbox");
+  const searchButton = screen.getByAltText("search button");
+  act(() => userEvent.type(searchBar, "asdfdas3ewanstr43qq2f3"));
+  act(() => userEvent.click(searchButton));
+
+  const showingItems = screen.getByTestId("showing-items");
+  expect(showingItems.textContent).toBe("No items found");
+});
+
 test("search items", async () => {
   render(<PaginatedTable data={data} />);
   const searchBar = screen.getByRole("textbox");

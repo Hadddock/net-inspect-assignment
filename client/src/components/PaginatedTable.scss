@@ -95,6 +95,8 @@
 
   &__page-number-container {
     box-shadow: inset 0em 0.5em $page-number-color;
+    width: 25%;
+    justify-content: center;
 
     height: 100%;
 

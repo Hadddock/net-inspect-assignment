@@ -171,3 +171,18 @@ test("go to next page", async () => {
   //end of accessible pages, remain at 4
   expect(pageNumber.textContent).toBe("4");
 });
+
+test("go to previous page", async () => {
+  render(<PaginatedTable data={data} initialPageSize={1} />);
+  const nextButton = screen.getByRole("button", { name: "next" });
+  const previousButton = screen.getByRole("button", { name: "previous" });
+
+  const pageNumber = screen.getByTestId("page-number");
+  //cannot go before first page, remain at 1
+  act(() => userEvent.click(previousButton));
+  expect(pageNumber.textContent).toBe("1");
+  act(() => userEvent.click(nextButton));
+  expect(pageNumber.textContent).toBe("2");
+  act(() => userEvent.click(previousButton));
+  expect(pageNumber.textContent).toBe("1");
+});

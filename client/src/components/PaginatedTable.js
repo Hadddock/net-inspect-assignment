@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const PaginatedTable = ({
   data,
@@ -9,7 +9,6 @@ const PaginatedTable = ({
 }) => {
   const getColumnHeaders = () => {
     let columnHeaderSet = new Set();
-
     data
       .map((entry) => Object.keys(entry))
       .forEach((keyArray) =>
@@ -96,9 +95,13 @@ const PaginatedTable = ({
     return value.toString();
   };
 
-  const [displayedData, setDisplayedData] = useState(data);
+  const [displayedData, setDisplayedData] = useState([]);
   const [pageSize, setPageSize] = useState(initialPageSize);
   const [pageNumber, setPageNumber] = useState(1);
+
+  useEffect(() => {
+    setDisplayedData(data);
+  }, [data, displayedData]);
 
   const columnHeaders = getColumnHeaders();
 

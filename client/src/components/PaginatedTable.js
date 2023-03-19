@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./PaginatedTable.scss";
 
 const PaginatedTable = ({
   data,
@@ -107,60 +108,105 @@ const PaginatedTable = ({
 
   return (
     <div className="PaginatedTable">
-      <form type="submit" onSubmit={searchItems}>
+      <form
+        className="PaginatedTable__search-form"
+        type="submit"
+        onSubmit={searchItems}
+      >
         <input
+          className="PaginatedTable__search-bar"
           id="search"
           type="text"
           placeholder="Search..."
           name="search"
         ></input>
-        <input type="submit" alt="search button" />
+        <input
+          className="PaginatedTable__search-button"
+          type="submit"
+          alt="search button"
+        />
       </form>
 
-      <table role="table">
-        <thead role="rowgroup">
-          <tr role="row">
-            {columnHeaders.map((headerName) => (
-              <th role="columnheader" key={headerName}>
-                {columnHeaderNameMappings[headerName] !== undefined
-                  ? columnHeaderNameMappings[headerName]
-                  : headerName}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody role="rowgroup">
-          {displayedData
-            .slice((pageNumber - 1) * pageSize, pageSize * pageNumber)
-            .map((entry) => (
-              <tr role="row">
-                {columnHeaders.map((header) => (
-                  <td role="cell">
-                    {convertValueToDisplayString(entry[header])}
-                  </td>
-                ))}
-              </tr>
-            ))}
-        </tbody>
-      </table>
-      <div>
-        <button onClick={goToFirstPage}>first</button>
-        <button onClick={goToPreviousPage}>previous</button>
-        <div data-testid="page-number">{pageNumber}</div>
-        <button onClick={goToNextPage}>next</button>
-        <button onClick={goToLastPage}>last</button>
-        <select
-          defaultValue={pageSize}
-          data-testid="page-size"
-          onChange={adjustPageSize}
-        >
-          <option value="1">1</option>
-          <option value="5">5</option>
-          <option value="10">10</option>
-          <option value="20">20</option>
-          <option value="50">50</option>
-          <option value="100">100</option>
-        </select>
+      <div className="PaginatedTable__table-container">
+        <table className="PaginatedTable__table" role="table">
+          <thead role="rowgroup">
+            <tr role="row" className="PaginatedTable__column-header-row">
+              {columnHeaders.map((headerName) => (
+                <th
+                  className="PaginatedTable__column-header"
+                  role="columnheader"
+                  key={headerName}
+                >
+                  {columnHeaderNameMappings[headerName] !== undefined
+                    ? columnHeaderNameMappings[headerName]
+                    : headerName}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody role="rowgroup">
+            {displayedData
+              .slice((pageNumber - 1) * pageSize, pageSize * pageNumber)
+              .map((entry) => (
+                <tr className="PaginatedTable__row" role="row">
+                  {columnHeaders.map((header) => (
+                    <td className="PaginatedTable__cell" role="cell">
+                      {convertValueToDisplayString(entry[header])}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="PaginatedTable__page-container">
+        <div className="PaginatedTable__page-selection">
+          <button
+            className="PaginatedTable__page-button"
+            onClick={goToFirstPage}
+          >
+            first
+          </button>
+          <button
+            className="PaginatedTable__page-button"
+            onClick={goToPreviousPage}
+          >
+            previous
+          </button>
+          <span
+            className="PaginatedTable__page-number"
+            data-testid="page-number"
+          >
+            {pageNumber}
+          </span>
+
+          <button
+            className="PaginatedTable__page-button"
+            onClick={goToNextPage}
+          >
+            next
+          </button>
+          <button
+            className="PaginatedTable__page-button"
+            onClick={goToLastPage}
+          >
+            last
+          </button>
+          <select
+            className="PaginatedTable__page-select"
+            defaultValue={pageSize}
+            data-testid="page-size"
+            onChange={adjustPageSize}
+          >
+            <option value="1">1</option>
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select>
+          <span>items per page</span>
+        </div>
         <div data-testid="showing-items">
           Showing items{" "}
           {`${pageSize * (pageNumber - 1) + 1} - ${Math.min(

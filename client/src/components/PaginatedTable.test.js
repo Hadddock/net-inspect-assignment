@@ -211,3 +211,17 @@ test("go to last page", async () => {
   //already at last page, nothing happens
   expect(pageNumber.textContent).toBe("4");
 });
+
+test("adjust page size", async () => {
+  render(<PaginatedTable data={data} />);
+  //initial page size is 20
+  expect(screen.getByRole("option", { name: "20" }).selected).toBe(true);
+  const pageSize = screen.getByRole("combobox");
+  //select page size of 1
+  act(() => userEvent.selectOptions(pageSize, ["1"]));
+  expect(screen.getByRole("option", { name: "1" }).selected).toBe(true);
+
+  //assert correct number of rows
+  const rows = screen.getAllByRole("row");
+  expect(rows.length).toBe(2);
+});

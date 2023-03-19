@@ -290,12 +290,16 @@ test("search case insensitive", async () => {
   expect(rows.length).toBe(3);
 });
 
-test("do not execute search on blank query", async () => {
+test("return all results on blank query", async () => {
   render(<PaginatedTable data={data} />);
   const searchBar = screen.getByRole("textbox");
   const searchButton = screen.getByAltText("search button");
+  act(() => userEvent.type(searchBar, "Baby"));
+  act(() => userEvent.click(searchButton));
+
   act(() => userEvent.type(searchBar, ""));
   act(() => userEvent.click(searchButton));
+
   const rows = screen.getAllByRole("row");
   //number of data rows total + column header row (1)
   expect(rows.length).toBe(5);

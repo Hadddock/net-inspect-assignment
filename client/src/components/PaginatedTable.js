@@ -70,14 +70,15 @@ const PaginatedTable = ({
   const searchItems = (e) => {
     e.preventDefault();
     let searchQuery = document.getElementById("search").value;
-
-    setDisplayedData(
-      data.filter((item) =>
-        Object.values(item)
-          .map((item) => convertValueToDisplayString(item).toLowerCase())
-          .includes(searchQuery.toLowerCase())
-      )
-    );
+    if (searchQuery) {
+      setDisplayedData(
+        data.filter((item) =>
+          Object.values(item)
+            .map((item) => convertValueToDisplayString(item).toLowerCase())
+            .includes(searchQuery.toLowerCase())
+        )
+      );
+    }
     goToFirstPage();
   };
 

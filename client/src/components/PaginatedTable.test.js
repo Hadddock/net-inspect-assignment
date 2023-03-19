@@ -297,10 +297,10 @@ test("return all results on blank query", async () => {
   act(() => userEvent.type(searchBar, "Baby"));
   act(() => userEvent.click(searchButton));
 
-  act(() => userEvent.type(searchBar, ""));
+  act(() => userEvent.clear(searchBar));
   act(() => userEvent.click(searchButton));
 
   const rows = screen.getAllByRole("row");
-  //number of data rows total + column header row (1)
+  //number of data rows total (4) + column header row (1)
   expect(rows.length).toBe(5);
 });

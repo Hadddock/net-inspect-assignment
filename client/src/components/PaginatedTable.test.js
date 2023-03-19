@@ -1,6 +1,7 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import PaginatedTable from "./PaginatedTable";
+import userEvent from "@testing-library/user-event";
 
 const data = [
   {
@@ -156,8 +157,17 @@ test("display number of items specified by initialPageSize", () => {
   expect(rows.length).toBe(3);
 });
 
-test("display items according to page number", () => {
-  render(<PaginatedTable data={data} initialPageSize={1} pageNumber={2} />);
-  const cells = screen.getAllByRole("cell");
-  expect(cells.map((cell) => cell.textContent)[0]).toBe("Garden");
+test("go to next page", async () => {
+  render(<PaginatedTable data={data} initialPageSize={1} />);
+  const button = screen.getByRole("button", { name: "next" });
+  const pageNumber = screen.getByTestId("page-number");
+  act(() => userEvent.click(button));
+  expect(pageNumber.textContent).toBe("2");
+  act(() => userEvent.click(button));
+  expect(pageNumber.textContent).toBe("3");
+  act(() => userEvent.click(button));
+  expect(pageNumber.textContent).toBe("4");
+  act(() => userEvent.click(button));
+  //end of accessible pages, remain at 4
+  expect(pageNumber.textContent).toBe("4");
 });

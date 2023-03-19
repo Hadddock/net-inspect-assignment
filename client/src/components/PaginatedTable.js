@@ -34,8 +34,35 @@ const PaginatedTable = ({
     return [...columnHeaderSet];
   };
 
+  const goToNextPage = () => {
+    console.log("called");
+    if (pageSize * pageNumber < displayedData.length) {
+      setPageNumber((pageNumber) => pageNumber + 1);
+    }
+  };
+
+  const goToPreviousPage = () => {
+    if (pageNumber !== 1) {
+      setPageNumber((pageNumber) => pageNumber - 1);
+    }
+  };
+
+  const goToLastPage = () => {
+    let lastPageNumber = Math.floor(displayedData.length / pageSize);
+    if (pageNumber !== lastPageNumber) {
+      setPageNumber(lastPageNumber);
+    }
+  };
+
+  const goToFirstPage = () => {
+    if (pageNumber !== 1) {
+      setPageNumber(1);
+    }
+  };
+
   const [displayedData, setDisplayedData] = useState(data);
   const [pageSize, setPageSize] = useState(initialPageSize);
+  const [pageNumber, setPageNumber] = useState(1);
 
   const columnHeaders = getColumnHeaders();
 
@@ -54,7 +81,7 @@ const PaginatedTable = ({
           </tr>
         </thead>
         <tbody role="rowgroup">
-          {displayedData.slice(0, pageSize).map((entry) => (
+          {displayedData.slice(pageNumber - 1, pageSize).map((entry) => (
             <tr role="row">
               {columnHeaders.map((header) => (
                 <td role="cell">{entry[header]}</td>
@@ -63,6 +90,13 @@ const PaginatedTable = ({
           ))}
         </tbody>
       </table>
+      <div>
+        <button onClick={goToFirstPage}>first</button>
+        <button onClick={goToPreviousPage}>previous</button>
+        <div data-testid="page-number">{pageNumber}</div>
+        <button onClick={goToNextPage}>next</button>
+        <button onClick={goToLastPage}>last</button>
+      </div>
     </div>
   );
 };

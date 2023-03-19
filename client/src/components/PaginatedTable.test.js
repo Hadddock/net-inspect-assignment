@@ -262,3 +262,18 @@ test("search items", async () => {
   //number of data rows matching search query (2) + column header row (1)
   expect(rows.length).toBe(3);
 });
+
+test("reset to first page after search query", async () => {
+  render(<PaginatedTable data={data} initialPageSize={1} />);
+
+  const button = screen.getByRole("button", { name: "next" });
+  act(() => userEvent.click(button));
+  act(() => userEvent.click(button));
+  const searchBar = screen.getByRole("textbox");
+  const searchButton = screen.getByAltText("search button");
+  act(() => userEvent.type(searchBar, "Baby"));
+  act(() => userEvent.click(searchButton));
+
+  const pageNumber = screen.getByTestId("page-number");
+  expect(pageNumber.textContent).toBe("1");
+});

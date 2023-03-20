@@ -23,29 +23,27 @@ const PaginatedTable = ({
   }, [data]);
 
   const getColumnHeaders = () => {
-    let columnHeaderSet = new Set();
+    const keySet = new Set();
+    // add all key values from all objects in to set
     data
       .map((entry) => Object.keys(entry))
-      .forEach((keyArray) =>
-        keyArray.forEach((key) => columnHeaderSet.add(key))
-      );
+      .forEach((keyArray) => keyArray.forEach((key) => keySet.add(key)));
 
-    let filteredHeaders = [...columnHeaderSet].filter(
-      (header) => !exclude.includes(header)
-    );
-
-    columnHeaderSet = new Set();
-
+    /* if a header exists in both columnHeaderOreder and keySet, add it to orderedHeaderSet.
+    this is to transfer columnHeaderOrder's order into orderedHeaderSet while
+    discarding headers with no matching data */
+    const orderedHeaderSet = new Set();
     if (columnHeaderOrder.length) {
       columnHeaderOrder.forEach((header) => {
-        if (filteredHeaders.includes(header)) {
-          columnHeaderSet.add(header);
+        if (keySet.has(header)) {
+          orderedHeaderSet.add(header);
         }
       });
     }
-    filteredHeaders.forEach((header) => columnHeaderSet.add(header));
-
-    return [...columnHeaderSet];
+    //add headers not listed in orderedHeaderSet
+    keySet.forEach((header) => orderedHeaderSet.add(header));
+    // discard all headers listed in exclude
+    return [...orderedHeaderSet].filter((header) => !exclude.includes(header));
   };
 
   const columnHeaders = getColumnHeaders();

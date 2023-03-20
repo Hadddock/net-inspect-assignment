@@ -1,4 +1,4 @@
-import { render, screen, act } from "@testing-library/react";
+import { render, screen, act, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import PaginatedTable from "./PaginatedTable";
 import userEvent from "@testing-library/user-event";
@@ -161,19 +161,20 @@ test("go to next page", async () => {
   render(<PaginatedTable data={data} initialPageSize={1} />);
   const button = screen.getByRole("button", { name: "next page" });
   const pageNumber = screen.getByTestId("page-number");
-  act(() => userEvent.click(button));
-  expect(pageNumber.textContent).toBe("2");
+  userEvent.click(button);
+  await waitFor(() => expect(pageNumber.textContent).toBe("2"));
 });
 
 test("stop progressing pages at page limit", async () => {
-  render(<PaginatedTable data={data} initialPageSize={1} />);
+  render(<PaginatedTable data={data} initialPageSize={2} />);
   const button = screen.getByRole("button", { name: "next page" });
   const pageNumber = screen.getByTestId("page-number");
-  act(() => userEvent.click(button)); // 2
-  act(() => userEvent.click(button)); // 3
-  act(() => userEvent.click(button)); // 4
-  act(() => userEvent.click(button)); // still 4
-  expect(pageNumber.textContent).toBe("4");
+  userEvent.click(button); // 2
+  userEvent.click(button);
+  userEvent.click(button);
+  userEvent.click(button);
+  userEvent.click(button); // still 2
+  await waitFor(() => expect(pageNumber.textContent).toBe("2"));
 });
 
 test("go to previous page", async () => {
@@ -181,17 +182,17 @@ test("go to previous page", async () => {
   const nextButton = screen.getByRole("button", { name: "next page" });
   const previousButton = screen.getByRole("button", { name: "previous page" });
   const pageNumber = screen.getByTestId("page-number");
-  act(() => userEvent.click(nextButton));
-  act(() => userEvent.click(previousButton));
-  expect(pageNumber.textContent).toBe("1");
+  userEvent.click(nextButton);
+  userEvent.click(previousButton);
+  await waitFor(() => expect(pageNumber.textContent).toBe("1"));
 });
 
 test("stop moving back in pages when at first page", async () => {
   render(<PaginatedTable data={data} initialPageSize={1} />);
   const previousButton = screen.getByRole("button", { name: "previous page" });
   const pageNumber = screen.getByTestId("page-number");
-  act(() => userEvent.click(previousButton));
-  expect(pageNumber.textContent).toBe("1");
+  userEvent.click(previousButton);
+  await waitFor(() => expect(pageNumber.textContent).toBe("1"));
 });
 
 test("go to first page", async () => {
@@ -199,26 +200,26 @@ test("go to first page", async () => {
   const nextButton = screen.getByRole("button", { name: "next page" });
   const firstButton = screen.getByRole("button", { name: "first page" });
   const pageNumber = screen.getByTestId("page-number");
-  act(() => userEvent.click(nextButton));
-  act(() => userEvent.click(nextButton));
-  act(() => userEvent.click(firstButton));
-  expect(pageNumber.textContent).toBe("1");
+  userEvent.click(nextButton);
+  userEvent.click(nextButton);
+  userEvent.click(firstButton);
+  await waitFor(() => expect(pageNumber.textContent).toBe("1"));
 });
 
 test("do nothing when pressing first page button while on first page", async () => {
   render(<PaginatedTable data={data} initialPageSize={1} />);
   const firstButton = screen.getByRole("button", { name: "first page" });
   const pageNumber = screen.getByTestId("page-number");
-  act(() => userEvent.click(firstButton));
-  expect(pageNumber.textContent).toBe("1");
+  userEvent.click(firstButton);
+  await waitFor(() => expect(pageNumber.textContent).toBe("1"));
 });
 
 test("go to last page", async () => {
   render(<PaginatedTable data={data} initialPageSize={1} />);
   const lastButton = screen.getByRole("button", { name: "last page" });
   const pageNumber = screen.getByTestId("page-number");
-  act(() => userEvent.click(lastButton));
-  expect(pageNumber.textContent).toBe("4");
+  userEvent.click(lastButton);
+  await waitFor(() => expect(pageNumber.textContent).toBe("4"));
 });
 
 test("do nothing when pressing last page button while on last page", async () => {
@@ -226,19 +227,21 @@ test("do nothing when pressing last page button while on last page", async () =>
   const nextButton = screen.getByRole("button", { name: "next page" });
   const lastButton = screen.getByRole("button", { name: "last page" });
   const pageNumber = screen.getByTestId("page-number");
-  act(() => userEvent.click(nextButton));
-  act(() => userEvent.click(nextButton));
-  act(() => userEvent.click(nextButton));
-  act(() => userEvent.click(lastButton));
-  expect(pageNumber.textContent).toBe("4");
+  userEvent.click(nextButton);
+  userEvent.click(nextButton);
+  userEvent.click(nextButton);
+  userEvent.click(lastButton);
+  await waitFor(() => expect(pageNumber.textContent).toBe("4"));
 });
 
 test("adjust page size", async () => {
   render(<PaginatedTable data={data} />);
   const pageSize = screen.getByRole("combobox");
-  act(() => userEvent.selectOptions(pageSize, ["1"]));
-  expect(screen.getByRole("option", { name: "1" }).selected).toBe(true);
-  expect(screen.getAllByRole("row").length).toBe(2);
+  userEvent.selectOptions(pageSize, ["1"]);
+  await waitFor(() =>
+    expect(screen.getByRole("option", { name: "1" }).selected).toBe(true)
+  );
+  await waitFor(() => expect(screen.getAllByRole("row").length).toBe(2));
 });
 
 test("display showing items text", async () => {
@@ -251,26 +254,32 @@ test("change showing items text after changing page size", async () => {
   render(<PaginatedTable data={data} initialPageSize={2} />); // initial page size set to 2, originally "Showing items 1 - 2"
   const showingItems = screen.getByTestId("showing-items");
   const pageSize = screen.getByRole("combobox");
-  act(() => userEvent.selectOptions(pageSize, ["1"]));
-  expect(showingItems.textContent).toBe("Showing items 1 - 1");
+  userEvent.selectOptions(pageSize, ["1"]);
+  await waitFor(() =>
+    expect(showingItems.textContent).toBe("Showing items 1 - 1")
+  );
 });
 
 test("change showing items text after changing page", async () => {
   render(<PaginatedTable data={data} initialPageSize={2} />);
   const showingItems = screen.getByTestId("showing-items"); // initial page size set to 2, originally "Showing items 1 - 2"
   const button = screen.getByRole("button", { name: "next page" });
-  act(() => userEvent.click(button));
-  expect(showingItems.textContent).toBe("Showing items 3 - 4");
+  userEvent.click(button);
+  await waitFor(() =>
+    expect(showingItems.textContent).toBe("Showing items 3 - 4")
+  );
 });
 
 test("showing items no items found", async () => {
   render(<PaginatedTable data={data} initialPageSize={2} />);
   const searchBar = screen.getByRole("searchbox");
   const searchButton = screen.getByRole("button", { name: "enter search" });
-  act(() => userEvent.type(searchBar, "asdfdas3ewanstr43qq2f3"));
-  act(() => userEvent.click(searchButton));
-  expect(screen.getByTestId("showing-items").textContent).toBe(
-    "No items found"
+  userEvent.type(searchBar, "asdfdas3ewanstr43qq2f3");
+  userEvent.click(searchButton);
+  await waitFor(() =>
+    expect(screen.getByTestId("showing-items").textContent).toBe(
+      "No items found"
+    )
   );
 });
 
@@ -278,9 +287,9 @@ test("search items", async () => {
   render(<PaginatedTable data={data} />);
   const searchBar = screen.getByRole("searchbox");
   const searchButton = screen.getByRole("button", { name: "enter search" });
-  act(() => userEvent.type(searchBar, "Baby"));
-  act(() => userEvent.click(searchButton));
-  expect(screen.getAllByRole("row").length).toBe(3); //number of data rows matching search query (2) + column header row (1)
+  userEvent.type(searchBar, "Baby");
+  userEvent.click(searchButton);
+  await waitFor(() => expect(screen.getAllByRole("row").length).toBe(3)); //number of data rows matching search query (2) + column header row (1)
 });
 
 test("reset to first page after search query", async () => {
@@ -289,29 +298,31 @@ test("reset to first page after search query", async () => {
   const button = screen.getByRole("button", { name: "next page" });
   const searchBar = screen.getByRole("searchbox");
   const searchButton = screen.getByRole("button", { name: "enter search" });
-  act(() => userEvent.click(button));
-  act(() => userEvent.click(button));
-  act(() => userEvent.type(searchBar, "Baby"));
-  act(() => userEvent.click(searchButton));
-  expect(screen.getByTestId("page-number").textContent).toBe("1");
+  userEvent.click(button);
+  userEvent.click(button);
+  userEvent.type(searchBar, "Baby");
+  userEvent.click(searchButton);
+  await waitFor(() =>
+    expect(screen.getByTestId("page-number").textContent).toBe("1")
+  );
 });
 
 test("search case insensitive", async () => {
   render(<PaginatedTable data={data} />);
   const searchBar = screen.getByRole("searchbox");
   const searchButton = screen.getByRole("button", { name: "enter search" });
-  act(() => userEvent.type(searchBar, "Baby"));
-  act(() => userEvent.click(searchButton));
-  expect(screen.getAllByRole("row").length).toBe(3); //number of data rows matching search query (2) + column header row (1)
+  userEvent.type(searchBar, "Baby");
+  userEvent.click(searchButton);
+  await waitFor(() => expect(screen.getAllByRole("row").length).toBe(3)); //number of data rows matching search query (2) + column header row (1)
 });
 
 test("return all results on blank query", async () => {
   render(<PaginatedTable data={data} />);
   const searchBar = screen.getByRole("searchbox");
   const searchButton = screen.getByRole("button", { name: "enter search" });
-  act(() => userEvent.type(searchBar, "Baby"));
-  act(() => userEvent.click(searchButton));
-  act(() => userEvent.clear(searchBar));
-  act(() => userEvent.click(searchButton));
-  expect(screen.getAllByRole("row").length).toBe(5); //number of data rows total (4) + column header row (1)
+  userEvent.type(searchBar, "Baby");
+  userEvent.click(searchButton);
+  userEvent.clear(searchBar);
+  userEvent.click(searchButton);
+  await waitFor(() => expect(screen.getAllByRole("row").length).toBe(5)); //number of data rows total (4) + column header row (1)
 });

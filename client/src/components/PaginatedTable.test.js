@@ -167,7 +167,7 @@ test("go to next page", async () => {
   await waitFor(() => expect(pageNumber.textContent).toBe("2"));
 });
 
-test("stop progressing pages at page limit", async () => {
+test("stop incrementing page when at page limit", async () => {
   render(<PaginatedTable data={data} initialPageSize={2} />);
   const button = screen.getByRole("button", { name: "next page" });
   const pageNumber = screen.getByTestId("page-number");
@@ -189,7 +189,7 @@ test("go to previous page", async () => {
   await waitFor(() => expect(pageNumber.textContent).toBe("1"));
 });
 
-test("stop moving back in pages when at first page", async () => {
+test("stop decrementing pages when at first page", async () => {
   render(<PaginatedTable data={data} initialPageSize={1} />);
   const previousButton = screen.getByRole("button", { name: "previous page" });
   const pageNumber = screen.getByTestId("page-number");
@@ -272,7 +272,7 @@ test("change showing items text after changing page", async () => {
   );
 });
 
-test("showing items no items found", async () => {
+test("change showing items when no matching items are found", async () => {
   render(<PaginatedTable data={data} initialPageSize={2} />);
   const searchBar = screen.getByRole("searchbox");
   const searchButton = screen.getByRole("button", { name: "enter search" });
@@ -318,7 +318,7 @@ test("search case insensitive", async () => {
   await waitFor(() => expect(screen.getAllByRole("row").length).toBe(3)); //number of data rows matching search query (2) + column header row (1)
 });
 
-test("return all results on blank query", async () => {
+test("return all items on blank query", async () => {
   render(<PaginatedTable data={data} />);
   const searchBar = screen.getByRole("searchbox");
   const searchButton = screen.getByRole("button", { name: "enter search" });

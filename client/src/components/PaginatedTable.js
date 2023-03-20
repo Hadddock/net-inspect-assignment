@@ -6,10 +6,21 @@ import NextSvg from "./../assets/images/next.svg";
 import PreviousSvg from "./../assets/images/previous.svg";
 import FirstSvg from "./../assets/images/first.svg";
 import SearchSvg from "./../assets/images/search.svg";
+import { PropTypes } from "prop-types";
 
+/**
+ * Component for displaying a Paginated Table.
+ *
+ * @component
+ * @param {Array} data - array of JavaScript objects containing only key value pairs to be displayed in a paginated table
+ * @param {Array} excludedColumnHeaders - array of strings representing column headers to be excluded from the table
+ * @param {{}} columnHeaderNameMappings - object with keys of column headers and values of the string to be displayed in their place
+ * @param {[]} columnHeaderOrder - array of strings arranged in order determining the order of displayed column headers. Any columns taken from keys in `data` but not listed in `columnHeaderOrder` are placed after headers in `columnHeaderOrder`
+ * @param {number} initialPageSize - number representing the initial max size of each page displayed
+ */
 const PaginatedTable = ({
   data,
-  exclude = [],
+  excludedColumnHeaders = [],
   columnHeaderNameMappings = {},
   columnHeaderOrder = [],
   initialPageSize = 20,
@@ -42,8 +53,10 @@ const PaginatedTable = ({
     }
     //add headers not listed in orderedHeaderSet
     keySet.forEach((header) => orderedHeaderSet.add(header));
-    // discard all headers listed in exclude
-    return [...orderedHeaderSet].filter((header) => !exclude.includes(header));
+    // discard all headers listed in excludedColumnHeaders
+    return [...orderedHeaderSet].filter(
+      (header) => !excludedColumnHeaders.includes(header)
+    );
   };
 
   const columnHeaders = getColumnHeaders();
@@ -264,6 +277,14 @@ const PaginatedTable = ({
       </div>
     </div>
   );
+};
+
+PaginatedTable.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object),
+  excludedColumnHeaders: PropTypes.arrayOf(PropTypes.string),
+  columnHeaderNameMappings: PropTypes.arrayOf(PropTypes.object),
+  columnHeaderOrder: PropTypes.arrayOf(PropTypes.string),
+  initialPageSize: PropTypes.number,
 };
 
 export default PaginatedTable;

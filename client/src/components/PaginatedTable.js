@@ -150,6 +150,7 @@ const PaginatedTable = ({
         <input
           className="PaginatedTable__search-bar"
           id="search"
+          onChange={searchItems}
           type="search"
           placeholder="Search..."
           name="search"

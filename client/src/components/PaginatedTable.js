@@ -102,11 +102,13 @@ const PaginatedTable = ({
   const searchItems = (e) => {
     e.preventDefault();
 
-    let searchQuery = document.getElementById("search").value;
+    let searchQuery = document.getElementById("search").value.toLowerCase();
 
     if (searchQuery && searchQuery.trim()) {
       setDisplayedData(
-        data.filter((item) => objectContainsPartialValue(item, searchQuery))
+        data.filter((object) =>
+          objectHasKeyContainingPartialString(object, searchQuery)
+        )
       );
     } else {
       setDisplayedData(data);
@@ -114,15 +116,13 @@ const PaginatedTable = ({
     goToFirstPage();
   };
 
-  const objectContainsPartialValue = (object, string) => {
+  const objectHasKeyContainingPartialString = (object, partialString) => {
     let values = Object.values(object);
-    console.log("check me out");
-    console.log(typeof values[0]);
+    let currentKey = "";
     for (let i = 0; i < values.length; i++) {
-      if (typeof values[i] === "string") {
-        if (values[i].toLowerCase().includes(string.toLowerCase())) {
-          return true;
-        }
+      currentKey = convertValueToDisplayString(values[i]).toLowerCase();
+      if (currentKey.includes(partialString)) {
+        return true;
       }
     }
     return false;

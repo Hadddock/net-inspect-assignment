@@ -327,6 +327,13 @@ test("reset to first page after search query", async () => {
   );
 });
 
+test("search on partially entered input", async () => {
+  render(<PaginatedTable data={data} />);
+  const searchBar = screen.getByRole("searchbox");
+  userEvent.type(searchBar, "bab");
+  await waitFor(() => expect(screen.getAllByRole("row").length).toBe(3)); //number of data rows matching search query (2) + column header row (1)
+});
+
 test("search case insensitive", async () => {
   render(<PaginatedTable data={data} />);
   const searchBar = screen.getByRole("searchbox");

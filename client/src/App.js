@@ -21,7 +21,7 @@ function App() {
       {data ? (
         <PaginatedTable
           data={data}
-          exclude={["qplExpirationDate"]}
+          excludedColumnHeaders={["qplExpirationDate"]}
           columnHeaderNameMappings={{
             partNumber: "Part Number",
             revision: "Part Revision",

@@ -85,7 +85,9 @@ test("display column headers in order", () => {
 });
 
 test("exclude selected column headers", () => {
-  render(<PaginatedTable data={data} exclude={["lastUpdatedBy"]} />);
+  render(
+    <PaginatedTable data={data} excludedColumnHeaders={["lastUpdatedBy"]} />
+  );
   const columnHeaders = screen.getAllByRole("columnheader");
   expect(columnHeaders.map((header) => header.textContent)).not.toContain(
     "lastUpdatedBy"
@@ -128,7 +130,7 @@ test("remap column header name", () => {
   render(
     <PaginatedTable
       data={data}
-      exclude={["lastUpdatedBy"]}
+      excludedColumnHeaders={["lastUpdatedBy"]}
       columnHeaderNameMappings={{ partNumber: "Part Number" }}
     />
   );

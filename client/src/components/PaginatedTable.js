@@ -103,18 +103,29 @@ const PaginatedTable = ({
     e.preventDefault();
 
     let searchQuery = document.getElementById("search").value;
+
     if (searchQuery && searchQuery.trim()) {
       setDisplayedData(
-        data.filter((item) =>
-          Object.values(item)
-            .map((item) => convertValueToDisplayString(item).toLowerCase())
-            .includes(searchQuery.toLowerCase())
-        )
+        data.filter((item) => objectContainsPartialValue(item, searchQuery))
       );
     } else {
       setDisplayedData(data);
     }
     goToFirstPage();
+  };
+
+  const objectContainsPartialValue = (object, string) => {
+    let values = Object.values(object);
+    console.log("check me out");
+    console.log(typeof values[0]);
+    for (let i = 0; i < values.length; i++) {
+      if (typeof values[i] === "string") {
+        if (values[i].toLowerCase().includes(string.toLowerCase())) {
+          return true;
+        }
+      }
+    }
+    return false;
   };
 
   const convertValueToDisplayString = (value) => {

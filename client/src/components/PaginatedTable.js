@@ -12,10 +12,10 @@ import { PropTypes } from "prop-types";
  * Component for displaying a Paginated Table.
  *
  * @component
- * @param {Array} data - array of JavaScript objects containing only key value pairs to be displayed in a paginated table
- * @param {Array} excludedColumnHeaders - array of strings representing column headers to be excluded from the table
+ * @param {[{}]} data - array of JavaScript objects containing only key value pairs to be displayed in a paginated table
+ * @param {[string]} excludedColumnHeaders - array of strings representing column headers to be excluded from the table
  * @param {{}} columnHeaderNameMappings - object with keys of column headers and values of the string to be displayed in their place
- * @param {[]} columnHeaderOrder - array of strings arranged in order determining the order of displayed column headers. Any columns taken from keys in `data` but not listed in `columnHeaderOrder` are placed after headers in `columnHeaderOrder`
+ * @param {[string]} columnHeaderOrder - array of strings arranged in order determining the order of displayed column headers. Any columns taken from keys in `data` but not listed in `columnHeaderOrder` are placed after headers in `columnHeaderOrder`
  * @param {number} initialPageSize - number representing the initial max size of each page displayed
  */
 const PaginatedTable = ({

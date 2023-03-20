@@ -1,4 +1,4 @@
-import { render, screen, act, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import PaginatedTable from "./PaginatedTable";
 import userEvent from "@testing-library/user-event";

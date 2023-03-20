@@ -36,26 +36,16 @@
     min-height: 35px;
   }
 
-  &__page-select {
-    box-sizing: border-box;
-    height: 60%;
-    min-width: 65px;
-    display: flex;
-    align-self: center;
-    min-height: 35px;
-    cursor: pointer;
+  &__table-container {
+    max-height: 80%;
+    min-height: 80%;
+    overflow-y: scroll;
   }
 
-  &__page-button {
-    border: 0;
-    padding: 8px;
-    background-color: transparent;
-    cursor: pointer;
-  }
-
-  &__items-per-page-display {
-    white-space: nowrap;
-    width: 200px;
+  &__table {
+    height: 100%;
+    width: 100%;
+    border-collapse: separate;
   }
 
   &__column-header-row {
@@ -72,8 +62,15 @@
     top: 2px;
     padding: 10px;
     color: $column-header-text-color;
-
     background-color: $header-footer-color;
+  }
+
+  &__cell {
+    border-top: 0.1em solid $header-footer-color;
+    height: 60px;
+    padding-left: 20px;
+    padding-right: 10px;
+    background-color: white;
   }
 
   &__page-container {
@@ -93,17 +90,21 @@
     gap: 10px;
     display: flex;
     align-items: center;
-
     height: 100%;
+  }
+
+  &__page-button {
+    border: 0;
+    padding: 8px;
+    background-color: transparent;
+    cursor: pointer;
   }
 
   &__page-number-container {
     box-shadow: inset 0em 0.5em $page-number-color;
     width: 25%;
     justify-content: center;
-
     height: 100%;
-
     display: flex;
     align-items: center;
   }
@@ -113,35 +114,23 @@
     color: $page-number-color;
   }
 
+  &__page-select {
+    box-sizing: border-box;
+    height: 60%;
+    min-width: 65px;
+    display: flex;
+    align-self: center;
+    min-height: 35px;
+    cursor: pointer;
+  }
+
+  &__items-per-page-display {
+    white-space: nowrap;
+    width: 200px;
+  }
+
   &__page-number-indicator {
     height: 50px;
     width: 50px;
-
-    background-color: blue;
-  }
-
-  &__table {
-    height: 100%;
-    width: 100%;
-
-    border-collapse: separate;
-    background-color: white;
-  }
-
-  &__cell {
-    border-top: 0.1em solid $header-footer-color;
-    height: 60px;
-
-    padding-left: 20px;
-    padding-right: 10px;
-
-    background-color: white;
-  }
-
-  &__table-container {
-    max-height: 80%;
-    min-height: 80%;
-
-    overflow-y: scroll;
   }
 }

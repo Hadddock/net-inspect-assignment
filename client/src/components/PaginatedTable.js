@@ -51,13 +51,18 @@ const PaginatedTable = ({
   const columnHeaders = getColumnHeaders();
 
   const goToNextPage = () => {
-    if (pageSize * pageNumber < displayedData.length) {
-      setPageNumber((pageNumber) => pageNumber + 1);
+    if (
+      pageSize * pageNumber < displayedData.length &&
+      pageNumber !== Math.max(Math.floor(displayedData.length / pageSize), 1)
+    ) {
+      setPageNumber((pageNumber) =>
+        Math.min(pageNumber + 1, Math.floor(displayedData.length / pageSize))
+      );
     }
   };
 
   const goToPreviousPage = () => {
-    if (pageNumber !== 1) {
+    if (pageNumber > 1) {
       setPageNumber((pageNumber) => pageNumber - 1);
     }
   };

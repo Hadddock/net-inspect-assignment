@@ -50,14 +50,17 @@ const PaginatedTable = ({
 
   const columnHeaders = getColumnHeaders();
 
+  const getLastPage = () => {
+    return Math.max(Math.floor(displayedData.length / pageSize), 1);
+  };
+
   const goToNextPage = () => {
+    const lastPage = getLastPage();
     if (
       pageSize * pageNumber < displayedData.length &&
-      pageNumber !== Math.max(Math.floor(displayedData.length / pageSize), 1)
+      pageNumber !== lastPage
     ) {
-      setPageNumber((pageNumber) =>
-        Math.min(pageNumber + 1, Math.floor(displayedData.length / pageSize))
-      );
+      setPageNumber((pageNumber) => Math.min(pageNumber + 1, lastPage));
     }
   };
 
@@ -68,12 +71,9 @@ const PaginatedTable = ({
   };
 
   const goToLastPage = () => {
-    let lastPageNumber = Math.max(
-      Math.floor(displayedData.length / pageSize),
-      1
-    );
-    if (pageNumber !== lastPageNumber) {
-      setPageNumber(lastPageNumber);
+    const lastPage = getLastPage();
+    if (pageNumber !== lastPage) {
+      setPageNumber(lastPage);
     }
   };
 

@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/net-inspect-assignment/static/css/main.1dda0346.css",
+    "main.js": "/net-inspect-assignment/static/js/main.d4c46978.js",
+    "static/media/search.svg": "/net-inspect-assignment/static/media/search.b7e1b8b1d26af71cefebbbce026f4f58.svg",
+    "static/media/first.svg": "/net-inspect-assignment/static/media/first.de9fe76d9cfa3d088ebfcbe502ab14a4.svg",
+    "static/media/last.svg": "/net-inspect-assignment/static/media/last.d6bca5e3800d8ae88b7ab8c775d9b416.svg",
+    "static/media/previous.svg": "/net-inspect-assignment/static/media/previous.bb95dc4e6187b77968a932bbe875e4b7.svg",
+    "static/media/next.svg": "/net-inspect-assignment/static/media/next.fd1c51e4c1fe5d578cbf0ece7fe0120c.svg",
+    "index.html": "/net-inspect-assignment/index.html",
+    "main.1dda0346.css.map": "/net-inspect-assignment/static/css/main.1dda0346.css.map",
+    "main.d4c46978.js.map": "/net-inspect-assignment/static/js/main.d4c46978.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1dda0346.css",
+    "static/js/main.d4c46978.js"
+  ]
+}

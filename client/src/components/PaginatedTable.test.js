@@ -303,6 +303,15 @@ test("search items with partial match", async () => {
   await waitFor(() => expect(screen.getAllByRole("row").length).toBe(3)); //number of data rows matching search query (2) + column header row (1)
 });
 
+test("search dates partial match", async () => {
+  render(<PaginatedTable data={data} />);
+  const searchBar = screen.getByRole("searchbox");
+  const searchButton = screen.getByRole("button", { name: "enter search" });
+  userEvent.type(searchBar, "4/8/");
+  userEvent.click(searchButton);
+  await waitFor(() => expect(screen.getAllByRole("row").length).toBe(2)); //number of data rows matching search query (1) + column header row (1)
+});
+
 test("reset to first page after search query", async () => {
   render(<PaginatedTable data={data} initialPageSize={1} />);
 
